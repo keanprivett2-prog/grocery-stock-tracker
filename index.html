@@ -1,0 +1,1401 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Grocery Stock Tracker</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header class="site-header">
+
+        <div>
+            <p class="eyebrow">
+                Household Inventory
+            </p>
+
+            <h1>
+                Grocery Stock Tracker
+            </h1>
+
+            <p class="header-description">
+                Track what you have, what you use, and what needs to be ordered.
+            </p>
+        </div>
+
+    </header>
+
+
+    <nav class="dashboard-nav">
+        <a href="#overview">Overview</a>
+        <a href="#inventory">Inventory</a>
+        <a href="#shopping">Shopping</a>
+        <a href="#spending">Spending</a>
+        <a href="#purchases">Purchases</a>
+        <a href="#services">Services</a>
+        <a href="#usage">Usage</a>
+    </nav>
+
+
+    <main class="page-container">
+
+
+        <!-- =========================================
+             Overview
+        ========================================== -->
+
+        <section id="overview" class="page-section">
+
+            <div class="section-title-block">
+                <p class="eyebrow">
+                    Dashboard
+                </p>
+
+                <h2>
+                    Overview
+                </h2>
+
+                <p>
+                    A quick look at your current household grocery position.
+                </p>
+            </div>
+
+
+            <div class="summary-grid">
+
+                <div class="summary-card">
+                    <p>
+                        Total Products
+                    </p>
+
+                    <h2 id="totalProducts">
+                        0
+                    </h2>
+                </div>
+
+
+                <div class="summary-card">
+                    <p>
+                        Low Stock
+                    </p>
+
+                    <h2 id="lowStockCount">
+                        0
+                    </h2>
+                </div>
+
+
+                <div class="summary-card">
+                    <p>
+                        Out of Stock
+                    </p>
+
+                    <h2 id="outOfStockCount">
+                        0
+                    </h2>
+                </div>
+
+
+                <div class="summary-card">
+                    <p>
+                        Items to Order
+                    </p>
+
+                    <h2 id="orderCount">
+                        0
+                    </h2>
+                </div>
+
+
+                <div class="summary-card">
+                    <p>
+                        Estimated Reorder Cost
+                    </p>
+
+                    <h2 id="estimatedOrderCost">
+                        R0.00
+                    </h2>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================================
+             Inventory
+        ========================================== -->
+
+        <section id="inventory" class="page-section">
+
+            <div class="section-title-block">
+                <p class="eyebrow">
+                    Stock Control
+                </p>
+
+                <h2>
+                    Inventory
+                </h2>
+
+                <p>
+                    View your current stock and add new grocery items.
+                </p>
+            </div>
+
+
+            <section class="panel">
+
+                <div class="section-heading">
+
+                    <div>
+                        <p class="eyebrow">
+                            Stock Levels
+                        </p>
+
+                        <h2>
+                            Grocery Inventory
+                        </h2>
+                    </div>
+
+
+                    <div class="inventory-controls">
+
+                        <input
+                            type="search"
+                            id="searchInput"
+                            placeholder="Search groceries..."
+                        >
+
+
+                        <select id="filterCategory">
+
+                            <option value="all">
+                                All Categories
+                            </option>
+
+                            <option value="Fruit & Vegetables">
+                                Fruit & Vegetables
+                            </option>
+
+                            <option value="Meat">
+                                Meat
+                            </option>
+
+                            <option value="Dairy">
+                                Dairy
+                            </option>
+
+                            <option value="Frozen">
+                                Frozen
+                            </option>
+
+                            <option value="Pantry">
+                                Pantry
+                            </option>
+
+                            <option value="Snacks">
+                                Snacks
+                            </option>
+
+                            <option value="Drinks">
+                                Drinks
+                            </option>
+
+                            <option value="Cleaning">
+                                Cleaning
+                            </option>
+
+                            <option value="Toiletries">
+                                Toiletries
+                            </option>
+
+                            <option value="Kids">
+                                Kids
+                            </option>
+
+                            <option value="Other">
+                                Other
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>Item</th>
+                                <th>Category</th>
+                                <th>Stock</th>
+                                <th>Minimum</th>
+                                <th>Used</th>
+                                <th>Avg. Usage</th>
+                                <th>Est. Remaining</th>
+                                <th>Status</th>
+                                <th>Price</th>
+                                <th>Actions</th>
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody id="inventoryTableBody">
+
+                            <tr>
+
+                                <td
+                                    colspan="10"
+                                    class="empty-table-message"
+                                >
+                                    No grocery items added yet.
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+
+           
+
+                        <section class="panel">
+
+                <div class="section-heading">
+
+                    <div>
+
+                        <p class="eyebrow">
+                            Existing Stock
+                        </p>
+
+                        <h2>
+                            Manual Inventory
+                        </h2>
+
+                        <p>
+                            Add older stock that you already have at home.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <form
+                    id="manualInventoryForm"
+                    class="grocery-form"
+                >
+
+                    <div class="form-group">
+
+                        <label for="manualItemName">
+                            Item Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="manualItemName"
+                            placeholder="Example: Rice"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="manualCategory">
+                            Category
+                        </label>
+
+                        <select
+                            id="manualCategory"
+                            required
+                        >
+
+                            <option value="">
+                                Select Category
+                            </option>
+
+                            <option value="Fruit & Vegetables">
+                                Fruit & Vegetables
+                            </option>
+
+                            <option value="Meat">
+                                Meat
+                            </option>
+
+                            <option value="Dairy">
+                                Dairy
+                            </option>
+
+                            <option value="Frozen">
+                                Frozen
+                            </option>
+
+                            <option value="Pantry">
+                                Pantry
+                            </option>
+
+                            <option value="Snacks">
+                                Snacks
+                            </option>
+
+                            <option value="Drinks">
+                                Drinks
+                            </option>
+
+                            <option value="Cleaning">
+                                Cleaning
+                            </option>
+
+                            <option value="Toiletries">
+                                Toiletries
+                            </option>
+
+                            <option value="Kids">
+                                Kids
+                            </option>
+
+                            <option value="Other">
+                                Other
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="manualStockQuantity">
+                            Current Stock
+                        </label>
+
+                        <input
+                            type="number"
+                            id="manualStockQuantity"
+                            min="0"
+                            step="1"
+                            placeholder="Example: 6"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="manualUnit">
+                            Unit
+                        </label>
+
+                        <select
+                            id="manualUnit"
+                            required
+                        >
+
+                            <option value="">
+                                Select Unit
+                            </option>
+
+                            <option value="items">
+                                Items
+                            </option>
+
+                            <option value="packs">
+                                Packs
+                            </option>
+
+                            <option value="boxes">
+                                Boxes
+                            </option>
+
+                            <option value="bottles">
+                                Bottles
+                            </option>
+
+                            <option value="bags">
+                                Bags
+                            </option>
+
+                            <option value="kg">
+                                Kilograms
+                            </option>
+
+                            <option value="g">
+                                Grams
+                            </option>
+
+                            <option value="L">
+                                Litres
+                            </option>
+
+                            <option value="ml">
+                                Millilitres
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="manualMinimumStock">
+                            Minimum Stock Level
+                        </label>
+
+                        <input
+                            type="number"
+                            id="manualMinimumStock"
+                            min="0"
+                            step="1"
+                            placeholder="Example: 2"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="manualReorderQuantity">
+                            Reorder Quantity
+                        </label>
+
+                        <input
+                            type="number"
+                            id="manualReorderQuantity"
+                            min="0"
+                            step="1"
+                            placeholder="Example: 4"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="manualUnitPrice">
+                            Estimated Price Per Unit
+                        </label>
+
+                        <input
+                            type="number"
+                            id="manualUnitPrice"
+                            min="0"
+                            step="0.01"
+                            placeholder="Optional"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group form-group-full">
+
+                        <label for="manualNotes">
+                            Notes
+                        </label>
+
+                        <textarea
+                            id="manualNotes"
+                            rows="3"
+                            placeholder="Optional notes about this existing stock..."
+                        ></textarea>
+
+                    </div>
+
+
+                    <div class="form-actions form-group-full">
+
+                        <button
+                            type="submit"
+                            class="primary-button"
+                        >
+                            Add to Inventory
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </section>
+
+        </section>
+
+
+        <!-- =========================================
+             Shopping
+        ========================================== -->
+
+        <section id="shopping" class="page-section">
+
+            <div class="section-title-block">
+                <p class="eyebrow">
+                    Reordering
+                </p>
+
+                <h2>
+                    Shopping
+                </h2>
+
+                <p>
+                    See what needs attention and record items as you buy them.
+                </p>
+            </div>
+
+
+            <section class="panel">
+
+                <div class="section-heading">
+
+                    <div>
+                        <p class="eyebrow">
+                            Shopping List
+                        </p>
+
+                        <h2>
+                            Items to Order
+                        </h2>
+                    </div>
+
+                </div>
+
+
+                <div id="reorderList" class="reorder-list">
+
+                    <p class="empty-message">
+                        Nothing currently needs to be ordered.
+                    </p>
+
+                </div>
+
+            </section>
+
+
+            <section class="panel">
+
+                <div class="section-heading">
+
+                    <div>
+                        <p class="eyebrow">
+                            In Store
+                        </p>
+
+                        <h2>
+                            Shopping Mode
+                        </h2>
+                    </div>
+
+                </div>
+
+                <div class="shopping-store-field">
+
+    <div class="form-group">
+
+        <label for="shoppingStore">
+            Store Name
+        </label>
+
+        <input
+            type="text"
+            id="shoppingStore"
+            placeholder="Example: Checkers"
+        >
+
+    </div>
+
+</div>
+
+
+                <div id="shoppingList" class="shopping-list">
+
+                    <p class="empty-message">
+                        No items currently need to be purchased.
+                    </p>
+
+                </div>
+
+
+                <div class="shopping-summary">
+
+                    <div>
+
+                        <span>
+                            Estimated Total
+                        </span>
+
+                        <strong id="shoppingEstimatedTotal">
+                            R0.00
+                        </strong>
+
+                    </div>
+
+
+                    <button
+                        type="button"
+                        id="addPurchasedStockButton"
+                        class="primary-button"
+                    >
+                        Add Purchased Items to Stock
+                    </button>
+
+                </div>
+
+            </section>
+
+        </section>
+
+
+        <!-- =========================================
+             Spending
+        ========================================== -->
+
+        <section id="spending" class="page-section">
+
+            <div class="section-title-block">
+                <p class="eyebrow">
+                    Grocery Spending
+                </p>
+
+                <h2>
+                    Spending
+                </h2>
+
+                <p>
+                    Compare monthly costs and see where your grocery money is going.
+                </p>
+            </div>
+
+
+            <section class="panel">
+
+                <div class="section-heading">
+
+                    <div>
+                        <p class="eyebrow">
+                            Monthly Overview
+                        </p>
+
+                        <h2>
+                            Spending Summary
+                        </h2>
+                    </div>
+
+                </div>
+
+
+                <div class="summary-grid">
+
+                    <div class="summary-card">
+
+                        <p>
+                            This Month
+                        </p>
+
+                        <h2 id="thisMonthSpend">
+                            R0.00
+                        </h2>
+
+                    </div>
+
+
+                    <div class="summary-card">
+
+                        <p>
+                            Last Month
+                        </p>
+
+                        <h2 id="lastMonthSpend">
+                            R0.00
+                        </h2>
+
+                    </div>
+
+
+                    <div class="summary-card">
+
+                        <p>
+                            Difference
+                        </p>
+
+                        <h2 id="monthlySpendDifference">
+                            R0.00
+                        </h2>
+
+                    </div>
+
+
+                    <div class="summary-card">
+
+                        <p>
+                            Most Expensive Category
+                        </p>
+
+                        <h2 id="mostExpensiveCategory">
+                            -
+                        </h2>
+
+                    </div>
+
+
+                    <div class="summary-card">
+
+                        <p>
+                            Most Purchased Item
+                        </p>
+
+                        <h2 id="mostPurchasedItem">
+                            -
+                        </h2>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <section class="panel">
+
+                <div class="section-heading">
+
+                    <div>
+                        <p class="eyebrow">
+                            Spending Trend
+                        </p>
+
+                        <h2>
+                            Monthly Spending Chart
+                        </h2>
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="monthlySpendingChart"
+                    class="monthly-spending-chart"
+                >
+
+                    <p class="empty-message">
+                        No monthly spending data yet.
+                    </p>
+
+                </div>
+
+            </section>
+
+
+            <section class="panel">
+
+                <div class="section-heading">
+
+                    <div>
+                        <p class="eyebrow">
+                            Spending Breakdown
+                        </p>
+
+                        <h2>
+                            Spending by Category
+                        </h2>
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="categorySpendingList"
+                    class="category-spending-list"
+                >
+
+                    <p class="empty-message">
+                        No category spending data yet.
+                    </p>
+
+                </div>
+
+            </section>
+
+        </section>
+
+        <section class="panel">
+
+    <div class="section-heading">
+
+        <div>
+
+            <p class="eyebrow">
+                Store Comparison
+            </p>
+
+            <h2>
+                Store Price Comparison
+            </h2>
+
+        </div>
+
+    </div>
+
+
+    <div
+        id="storePriceComparisonList"
+        class="store-price-comparison-list"
+    >
+
+        <p class="empty-message">
+            Not enough store price data yet.
+        </p>
+
+    </div>
+
+</section>
+
+
+        <!-- =========================================
+             Purchases
+        ========================================== -->
+
+        <section id="purchases" class="page-section">
+
+            <div class="section-title-block">
+                <p class="eyebrow">
+                    Purchase Records
+                </p>
+
+                <h2>
+                    Purchases
+                </h2>
+
+                <p>
+                    Add older purchases and review your recorded purchase history.
+                </p>
+            </div>
+
+
+            <section class="panel">
+
+                <div class="section-heading">
+
+                    <div>
+                        <p class="eyebrow">
+                            Historical Purchases
+                        </p>
+
+                        <h2>
+                            Add Previous Purchase
+                        </h2>
+                    </div>
+
+                </div>
+
+
+                <form id="receiptForm" class="receipt-form">
+
+    <div class="receipt-header-grid">
+
+        <div class="form-group">
+
+            <label for="receiptDate">
+                Purchase Date
+            </label>
+
+            <input
+                type="date"
+                id="receiptDate"
+                required
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label for="receiptStore">
+                Store Name
+            </label>
+
+            <input
+                type="text"
+                id="receiptStore"
+                placeholder="Example: Checkers"
+                required
+            >
+
+        </div>
+
+    </div>
+
+
+    <div class="receipt-items-header">
+
+        <div>
+
+            <p class="eyebrow">
+                Receipt Items
+            </p>
+
+            <h3>
+                Items Purchased
+            </h3>
+
+        </div>
+
+
+        
+
+    </div>
+
+
+    <div id="receiptItems">
+    <!-- Receipt item rows will appear here -->
+</div>
+
+<div class="receipt-add-item">
+
+    <button
+        type="button"
+        id="addReceiptItemButton"
+        class="action-button"
+    >
+        + Add Item
+    </button>
+
+</div>
+
+<div class="receipt-footer">
+
+        <div class="receipt-total-block">
+
+            <span>
+                Receipt Total
+            </span>
+
+            <strong id="receiptTotal">
+                R0.00
+            </strong>
+
+        </div>
+
+
+        <button
+            type="submit"
+            class="primary-button"
+        >
+            Save Entire Receipt
+        </button>
+
+    </div>
+
+</form>
+
+            </section>
+
+
+            <section class="panel">
+
+                <div class="section-heading">
+
+                    <div>
+                        <p class="eyebrow">
+                            Spending History
+                        </p>
+
+                        <h2>
+                            Purchase History
+                        </h2>
+                    </div>
+
+
+                    <button
+                        type="button"
+                        id="clearPurchaseHistoryButton"
+                        class="action-button"
+                    >
+                        Clear Purchase History
+                    </button>
+
+                </div>
+
+
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>Date</th>
+                                <th>Item</th>
+                                <th>Store</th>
+                                <th>Category</th>
+                                <th>Quantity</th>
+                                <th>Purchase Price</th>
+                                <th>Total</th>
+                                <th>Price Change</th>
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody id="purchaseHistoryTableBody">
+
+                            <tr>
+
+                                <td
+                                    colspan="8"
+                                    class="empty-table-message"
+                                >
+                                    No purchase history yet.
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+        </section>
+
+        <!-- =========================================
+             Services
+        ========================================== -->
+
+        <section id="services" class="page-section">
+
+            <div class="section-title-block">
+
+                <p class="eyebrow">
+                    Facility Services
+                </p>
+
+                <h2>
+                    Service Visits
+                </h2>
+
+                <p>
+                    Record completed supplier service visits for office equipment and facilities.
+                </p>
+
+            </div>
+
+            <section class="panel">
+
+    <div class="section-heading">
+
+        <div>
+
+            <p class="eyebrow">
+                Service Summary
+            </p>
+
+            <h2>
+                Recent Service Activity
+            </h2>
+
+        </div>
+
+    </div>
+
+
+    <div class="summary-grid">
+
+        <div class="summary-card">
+
+            <p>
+                Last Service
+            </p>
+
+            <h2 id="lastServiceDate">
+                -
+            </h2>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <p>
+                Previous Service
+            </p>
+
+            <h2 id="previousServiceDate">
+                -
+            </h2>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <p>
+                Last Interval
+            </p>
+
+            <h2 id="lastServiceInterval">
+                -
+            </h2>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <p>
+                Average Interval
+            </p>
+
+            <h2 id="averageServiceInterval">
+                -
+            </h2>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+            <section class="panel">
+
+                <div class="section-heading">
+
+                    <div>
+
+                        <p class="eyebrow">
+                            Service History
+                        </p>
+
+                        <h2>
+                            Record Completed Service
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+                <form id="serviceVisitForm" class="grocery-form">
+
+                    <div class="form-group">
+
+                        <label for="serviceProvider">
+                            Service Provider
+                        </label>
+
+                        <input
+                            type="text"
+                            id="serviceProvider"
+                            placeholder="e.g. Bidvest"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="serviceDate">
+                            Service Date
+                        </label>
+
+                        <input
+                            type="date"
+                            id="serviceDate"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="serviceItems">
+                            What Was Serviced?
+                        </label>
+
+                        <input
+                            type="text"
+                            id="serviceItems"
+                            placeholder="e.g. Paper towel machines, SHE bins"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="serviceNotes">
+                            Notes
+                        </label>
+
+                        <textarea
+                            id="serviceNotes"
+                            placeholder="Optional notes"
+                        ></textarea>
+
+                    </div>
+
+
+                    <button type="submit">
+                        Save Service Visit
+                    </button>
+
+                </form>
+
+            </section>
+
+
+            <section class="panel">
+
+                <div class="section-heading">
+
+                    <div>
+
+                        <p class="eyebrow">
+                            Previous Visits
+                        </p>
+
+                        <h2>
+                            Service History
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+                <div id="serviceVisitList" class="service-visit-list">
+
+                    <p class="empty-message">
+                        No completed service visits recorded yet.
+                    </p>
+
+                </div>
+
+            </section>
+
+        </section>
+
+
+        <!-- =========================================
+             Usage
+        ========================================== -->
+
+        <section id="usage" class="page-section">
+
+            <div class="section-title-block">
+
+                <p class="eyebrow">
+                    Consumption Tracking
+                </p>
+
+                <h2>
+                    Usage
+                </h2>
+
+                <p>
+                    Review how quickly groceries are being used over time.
+                </p>
+
+            </div>
+
+
+            <section class="panel">
+
+                <div class="section-heading">
+
+                    <div>
+                        <p class="eyebrow">
+                            Consumption Tracking
+                        </p>
+
+                        <h2>
+                            Usage History
+                        </h2>
+                    </div>
+
+
+                    <button
+                        type="button"
+                        id="clearUsageHistoryButton"
+                        class="action-button"
+                    >
+                        Clear History
+                    </button>
+
+                </div>
+
+
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>Date</th>
+                                <th>Item</th>
+                                <th>Category</th>
+                                <th>Amount Used</th>
+                                <th>Remaining Stock</th>
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody id="usageHistoryTableBody">
+
+                            <tr>
+
+                                <td
+                                    colspan="5"
+                                    class="empty-table-message"
+                                >
+                                    No usage history yet.
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+        </section>
+
+    </main>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
